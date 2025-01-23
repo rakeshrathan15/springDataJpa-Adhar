@@ -1,0 +1,145 @@
+openapi: 3.0.1
+info:
+  title: Bank Account API
+  version: 1.0.0
+servers:
+  - url: /
+paths:
+  /api/accounts:
+    get:
+      operationId: getAccounts
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Account'
+                type: array
+          description: List of accounts
+      summary: Get all bank accounts
+      x-accepts: application/json
+    post:
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: Account created successfully
+      summary: Create a new bank account
+      x-content-type: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    Account:
+      example:
+        nominee:
+          address:
+            pincode: pincode
+            city: city
+            street: street
+            id: 1
+            state: state
+          percentage: 5.637377
+          name: name
+          id: 5
+          relation: relation
+        id: 0
+        accountNumber: accountNumber
+        customer:
+          address:
+            pincode: pincode
+            city: city
+            street: street
+            id: 1
+            state: state
+          mobileNumber: mobileNumber
+          name: name
+          id: 6
+          email: email
+      properties:
+        id:
+          type: integer
+        accountNumber:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        nominee:
+          $ref: '#/components/schemas/Nominee'
+      type: object
+    Customer:
+      example:
+        address:
+          pincode: pincode
+          city: city
+          street: street
+          id: 1
+          state: state
+        mobileNumber: mobileNumber
+        name: name
+        id: 6
+        email: email
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        mobileNumber:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+      type: object
+    Nominee:
+      example:
+        address:
+          pincode: pincode
+          city: city
+          street: street
+          id: 1
+          state: state
+        percentage: 5.637377
+        name: name
+        id: 5
+        relation: relation
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        relation:
+          type: string
+        percentage:
+          format: float
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+      type: object
+    Address:
+      example:
+        pincode: pincode
+        city: city
+        street: street
+        id: 1
+        state: state
+      properties:
+        id:
+          type: integer
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        pincode:
+          type: string
+      type: object
